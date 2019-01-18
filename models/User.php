@@ -53,7 +53,7 @@ class User extends Model
         }
     }
 
-    // Verifica se um email é válido
+    // Verifica se um email existe no banco de dados.
     public function verifyEmail($email)
     {
         $sql = 'SELECT * FROM user WHERE email = :email';
@@ -61,12 +61,12 @@ class User extends Model
         $sql->bindValue(':email', $email);
         $sql->execute();
 
-        // Email válido.
+        // Email não existe
         if ($sql->rowCount() == 0) {
-            return true;
+            return false;
         }
-        // Email inválido (está em uso).
-        return false;
+        // Email existe.
+        return true;
     }
 
     // Cadastra um usuário.
@@ -81,5 +81,44 @@ class User extends Model
         $sql->execute();
 
         return $this->db->lastInsertId();   
+    }
+
+    // Pega um id através do email.
+    public function getIdByEmail($email)
+    {
+        $sql = 'SELECT * FROM user WHERE email = :email';
+        $sql = $this->db->prepare($sql);
+        $sql->bindValue(':email', $email);
+        $sql->execute();
+
+        if ($sql->rowCount() > 0) {
+            $info = $sql->fetch();
+            return $info['id_user'];
+        }
+
+        return false;
+    }
+
+    // Envia um email de recuparação da senha
+    public function sendRecoveryEmail($email, $token)
+    {
+        $link_recuperacao = BASE_URL.'login/recoverPassword/'.$email.'/'.$token;
+        $assunto = 'Recuperar Senha';
+        $corpo = 'Para recuperar a senha clique no link abaixo.<br>'.$link_recuperacao;
+        $cabecalho = 'From: suporte@tcthaylan.com.br'."\r\n".
+        'X-Mailer: PHP/'.phpversion();
+
+        return $corpo;
+        //mail($email, $assunto, $corpo, $cabecalho);
+    }
+
+    // Altera a senha do usuário
+    public function alterPassword($email, $password)
+    {
+        $sql = 'UPDATE user SET password = :password WHERE email = :email';
+        $sql = $this->db->prepare($sql);
+        $sql->bindValue(':email', $email);
+        $sql->bindValue(':password', $password);
+        $sql->execute();
     }
 }

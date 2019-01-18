@@ -1,0 +1,55 @@
+/* =========== Geral =========== */
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+ul, ol, li {
+    list-style: none;
+    margin: 0;
+}
+html, body {
+    height: 100%;
+}
+
+/* =========== Home.php =========== */
+.banner {
+    background-image: url('../images/banner01.jpg');
+    background-size: cover;
+    height: 275px;
+}
+.banner > .container {
+    height: 275px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.banner-text {
+    color: #fff;
+    text-shadow: 1px 1px 1px #000;
+    text-align: center;
+}
+.banner-text > h1 {
+    font-size: 30px;
+    margin-bottom: 1px;
+}
+.banner-text > p {
+    font-size: 19px;
+}
+.btn-banner {
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 9px 18px;
+    border: 1px solid rgba(255, 255, 255, 0.808);
+    border-radius: 5px;
+    transition: all 1s;
+}
+.btn-banner:hover {
+    color: #000;
+    text-decoration: none;
+    background-color: #fff;
+}

@@ -2,9 +2,11 @@
 
 <form method="POST">
     Email: <br>
-    <input type="text" id="email" name="email"> <br><br>
+    <input type="text" id="email" name="email" required> <br>
     Senha: <br>
-    <input type="password" id="password" name="password"> <br><br>
+    <input type="password" id="password" name="password" required> <br>
+
+    <a href="<?php echo BASE_URL . 'login/forgotPassword' ?>">Esqueci minha senha.</a><br>
 
     <input type="submit" value="Entrar">
 </form>

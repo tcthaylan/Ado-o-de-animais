@@ -19,20 +19,20 @@
     <div class="form-row">
         <div class="form-group col-md-6">
             <label for="name">Nome</label>
-            <input type="text" id="name" name="name" class="form-control">
+            <input type="text" id="name" name="name" class="form-control" required>
         </div>
         <div class="form-group col-md-6"">
             <label for="last_name">Sobrenome</label>
-            <input type="text" id="last_name" name="last_name" class="form-control">
+            <input type="text" id="last_name" name="last_name" class="form-control" required>
         </div>
     </div>
     <div class="form-group">
         <label for="email">Email</label>
-        <input type="text" id="email" name="email" class="form-control">
+        <input type="text" id="email" name="email" class="form-control" required>
     </div>
     <div class="form-group">
         <label for="password">Senha</label>
-        <input type="password" id="password" name="password" class="form-control">
+        <input type="password" id="password" name="password" class="form-control" required>
     </div>
     <div class="form-row">
         <div class="form-group col-md-4">
@@ -45,7 +45,7 @@
         </div>
         <div class="form-group col-md-8">
             <label for="city">Cidade</label>
-            <input type="text" id="city" name="city" class="form-control">
+            <input type="text" id="city" name="city" class="form-control" required>
         </div>
     </div>
     <div class="form-row">
