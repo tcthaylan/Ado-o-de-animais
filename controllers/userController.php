@@ -18,7 +18,26 @@ class userController extends Controller
 
     public function index()
     {
+        $data = array(
+            'menu' => $this->user->getLogin(),
+            'user' => array(),
+            'states' => array()
+        );
 
+        $user = new User();
+        $phone = new Phone();
+        $userAddress = new UserAddress();
+        $federativeUnit = new FederativeUnit();
+
+        $u = $user->getUserById($_SESSION['id_user']);
+        $p = $phone->getPhoneById($_SESSION['id_user']);
+        $ua = $userAddress->getUserAddressById($_SESSION['id_user']);
+        $fu = $federativeUnit->getFUByUf($ua['uf']);
+
+        $data['user'] = array_merge($u, $p, $ua, $fu);
+        $data['states'] = $federativeUnit->getFederativeUnits();
+
+        $this->loadTemplate('user', $data);
     }
 
     public function edit()
@@ -64,7 +83,7 @@ class userController extends Controller
             } else {
                 $data['msg'] = 'Preencha todos os campos!';
             }
-        }
+        }   
 
         $u = $user->getUserById($_SESSION['id_user']);
         $p = $phone->getPhoneById($_SESSION['id_user']);
@@ -74,6 +93,6 @@ class userController extends Controller
         $data['user'] = array_merge($u, $p, $ua, $fu);
         $data['states'] = $federativeUnit->getFederativeUnits();
 
-        $this->loadTemplate('edit', $data);
+        $this->loadTemplate('editUser', $data);
     }
 }

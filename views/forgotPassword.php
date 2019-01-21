@@ -1,7 +1,8 @@
 <h3>Esqueci a minha senha</h3>
 <?php if (!empty($msg['success'])): ?>
     <div class="alert alert-success">
-        <?php echo $msg['success'] ?>
+        <p>Clique no link abaixo para trocar a senha</p> 
+        <a href="<?php echo $msg['success'] ?>"><?php echo $msg['success'] ?></a>
     </div>
 <?php elseif (!empty($msg['warning'])): ?>
     <div class="alert alert-warning">

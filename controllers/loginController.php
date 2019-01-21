@@ -121,12 +121,12 @@ class loginController extends Controller
 
             // Verifica se o email existe.
             if ($user->emailExists($email)) {
-                // Cria um token e enviando um email para a recuperação da senha.
+                // Cria um token e envia um email para a recuperação da senha.
                 $id_user = $user->getIdByEmail($email);
                 $token = $userToken->createUserToken($id_user);
-                $corpo = $user->sendRecoveryEmail($email, $token);
+                $link_recuperacao = $user->sendRecoveryEmail($email, $token);
 
-                $data['msg']['success'] = 'Email de recuperação. '.$corpo;
+                $data['msg']['success'] = $link_recuperacao;
             } else {
                 $data['msg']['warning'] = 'Este email não existe!';
             }
@@ -135,7 +135,7 @@ class loginController extends Controller
         $this->loadTemplate('forgotPassword', $data);
     }
 
-    public function recoverPassword($email, $token)
+    public function recoverPassword()
     {   
         $data = array(
             'menu' => $this->user->getLogin(),
@@ -145,7 +145,7 @@ class loginController extends Controller
             )
         );
 
-        if (empty($email) || empty($token)) {
+        if (empty($_GET['email']) || empty($_GET['token'])) {
             header('Location: '.BASE_URL);
             exit;
         }
@@ -154,8 +154,8 @@ class loginController extends Controller
         $userToken = new UserToken();
 
         if (!empty($_POST['password'])) {
-            $email      = addslashes($email);
-            $token      = addslashes($token);
+            $email      = addslashes($_GET['email']);
+            $token      = addslashes($_GET['token']);
             $password   = md5($_POST['password']);
 
             if ($userToken->verifyUserToken($token)) {

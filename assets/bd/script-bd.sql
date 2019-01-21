@@ -78,13 +78,11 @@ create table animalAddress (
 create table animal (
 	id_animal int primary key auto_increment,
     id_specie int not null,
-    id_size int not null,
     id_user int not null,
-    id_breed int not null,
     name varchar(100) not null, 
     gender char(1) not null,
     description text null,
-    birth_date date null,
+    size char(1) not null,
     status tinyint(1) not null default 0
 )default charset = utf8;
 
@@ -96,22 +94,6 @@ create table specie (
 insert into specie (id_specie, specie_name) values 
 (DEFAULT, 'Cachorro'),
 (DEFAULT, 'Gato');
-
-create table size (
-	id_size int primary key auto_increment,
-    size_name varchar(100) not null
-)default charset = utf8;
-
-insert into size (id_size, size_name) values 
-(DEFAULT, 'Pequeno'),
-(DEFAULT, 'Médio'),
-(DEFAULT, 'Grande');
-
-create table breed (
-	id_breed int primary key auto_increment,
-    id_specie int not null,
-    breed_name varchar(100) not null
-)default charset = utf8;
 
 create table animalImage (
 	id_animal_image int primary key auto_increment,
@@ -149,37 +131,19 @@ add constraint fk_animalAddress_id_animal
 foreign key (id_animal) 
 references animal (id_animal);
 
-alter table breed
-add constraint fk_breed_id_specie
-foreign key (id_specie) 
-references specie (id_specie);
-
 alter table animal
 add constraint fk_animal_id_specie 
 foreign key (id_specie)
 references specie (id_specie); 
 
 alter table animal
-add constraint fk_animal_id_size 
-foreign key (id_size)
-references size (id_size); 
-
-alter table animal
 add constraint fk_animal_id_user
 foreign key (id_user)
 references user (id_user); 
-
-alter table animal
-add constraint fk_animal_id_breed 
-foreign key (id_breed)
-references breed (id_breed); 
 
 alter table animalImage
 add constraint fk_animalImage_id_animal
 foreign key (id_animal)
 references animal (id_animal);
-
-
-
 
 

@@ -18,7 +18,7 @@
 					<ul class="navbar-nav ml-auto">
 						<?php if ($viewData['menu'] == true): ?>
 							<li class="nav-item">
-								<a class="nav-link" href="#">Meus animais</a>
+								<a class="nav-link" href="<?php echo BASE_URL.'user' ?>">Meus animais</a>
 							</li>
 							<li class="nav-item" >
 								<a class="nav-link" href="<?php echo BASE_URL.'user/edit' ?>" >Editar Perfil</a>

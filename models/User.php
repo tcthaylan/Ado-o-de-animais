@@ -129,13 +129,13 @@ class User extends Model
     // Envia um email de recuparação da senha
     public function sendRecoveryEmail($email, $token)
     {
-        $link_recuperacao = BASE_URL.'login/recoverPassword/'.$email.'/'.$token;
+        $link_recuperacao = BASE_URL.'login/recoverPassword?email='.$email.'&token='.$token;
         $assunto = 'Recuperar Senha';
         $corpo = 'Para recuperar a senha clique no link abaixo.<br>'.$link_recuperacao;
         $cabecalho = 'From: suporte@tcthaylan.com.br'."\r\n".
         'X-Mailer: PHP/'.phpversion();
 
-        return $corpo;
+        return $link_recuperacao;
         //mail($email, $assunto, $corpo, $cabecalho);
     }
 
