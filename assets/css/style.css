@@ -10,6 +10,39 @@ ul, ol, li {
 }
 html, body {
     height: 100%;
+    background-color: #F8F9FA;
+}
+/* =========== Navbar =========== */
+.navbar {
+    background-color: #fff!important;
+}
+.logo {
+    color: #000;
+    font-size: 30px;
+    font-weight: 600;
+    margin: 10px 0;
+}
+.logo:hover {
+    color: #000;
+    text-decoration: none;
+}
+.button {
+    color: #fff !important;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 6px 15px !important;
+    border-radius: 5px;
+    margin: 0 2px;
+}
+.button:hover {
+    color: #fff;
+    text-decoration: none;
+}
+.button-login {
+    background-color: #4893D8;
+}
+.button-register {
+    background-color: #326FC0;
 }
 
 /* =========== Home.php =========== */
@@ -52,4 +85,58 @@ html, body {
     color: #000;
     text-decoration: none;
     background-color: #fff;
+}
+
+/* =========== Login.php =========== */
+.form-login {
+    margin: 100px auto;
+    padding: 20px 35px;
+    min-width: 320px;
+    max-width: 360px;
+    text-align: center;
+    background-color: #fff;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.form-login > .form-header {
+    padding-bottom: 15px; 
+}
+.form-login > .form-header h3 {
+    font-size: 34px;
+    font-weight: 600;
+    color: #000;
+}
+.form-login input[type="text"],
+.form-login input[type="password"] {
+    width: 100%;
+    padding: 13px 0;
+    margin: 10px 0;
+    border-bottom: 2px solid rgba(204, 204, 204, 0.7);  
+    transition: all 0.8s;
+}
+.form-login input[type="text"]:focus,
+.form-login input[type="password"]:focus {
+    border-color:  #4893D8;
+    outline: none;
+}
+.form-login .forgot-link {
+    float: right;
+}
+.button-submit-login {
+    color: #fff;
+    font-weight: 600;
+    background-image: linear-gradient(to right, #41B8F0 , #324DA8);
+    display: block;
+    width: 100%;
+    border-radius: 50px;
+    padding: 10px;
+    margin-top: 40px;
+}
+.form-login .form-footer {
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+.form-login .form-footer p {
+    color: red;  
+    font-weight: 600;
+    font-size: 15px;
 }

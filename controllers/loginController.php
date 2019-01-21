@@ -1,22 +1,36 @@
 <?php
 class loginController extends Controller
 {
+    private $user;
+
+    public function __construct()
+    {
+        parent::__construct();
+    
+        $this->user = new User();   
+        $this->user->setLogin(false);
+        unset($_SESSION['token']);
+        unset($_SESSION['id_user']);    
+    }
+
     public function index()
     {
         $data = array(
+            'menu' => $this->user->getLogin(),
             'msg' => ''
-        );
+        ); 
 
         if (!empty($_POST['email'])) {
             $email = addslashes($_POST['email']);
             $password = md5($_POST['password']);
 
             if (!empty($_POST['email']) && !empty($_POST['password'])) {
-                $u = new User();
+                $user = new User();
 
                 // Verificando se email e senha são válidos.
-                if ($u->verifyUser($email, $password)) {
-                    $_SESSION['token'] = $u->createToken($email);
+                if ($user->verifyUser($email, $password)) {
+                    $_SESSION['token'] = $user->createToken($email);
+                    $_SESSION['id_user'] = $user->getIdByEmail($email);
                     header('Location: ' . BASE_URL);
                     exit;
                 } else {
@@ -32,6 +46,7 @@ class loginController extends Controller
     public function createAccount()
     {
         $data = array(
+            'menu' => $this->user->getLogin(),
             'states'    => array(),
             'msg'       => array(
                 'success'   => '',
@@ -66,11 +81,11 @@ class loginController extends Controller
 
                 $user = new User();
                 $phone = new Phone();
-                $userAddress = new UserAdress();
+                $userAddress = new UserAddress();
                 $userToken = new UserToken();
                 
                 // Verificando se o email existe.
-                if (!$user->verifyEmail($email)) {
+                if ($user->emailExists($email) == false) {
                     // Cadastrando usuário, telefone e endereço no banco de dados.
                     $id_user = $user->registerUser($name, $last_name, $email, $password);
                     $userAddress->registerAddress($id_user, $uf, $city);
@@ -91,6 +106,7 @@ class loginController extends Controller
     public function forgotPassword()
     {
         $data = array(
+            'menu' => $this->user->getLogin(),
             'msg'       => array(
                 'success'   => '',
                 'warning'   => ''
@@ -104,7 +120,7 @@ class loginController extends Controller
             $userToken = new UserToken();
 
             // Verifica se o email existe.
-            if ($user->verifyEmail($email)) {
+            if ($user->emailExists($email)) {
                 // Cria um token e enviando um email para a recuperação da senha.
                 $id_user = $user->getIdByEmail($email);
                 $token = $userToken->createUserToken($id_user);
@@ -122,11 +138,17 @@ class loginController extends Controller
     public function recoverPassword($email, $token)
     {   
         $data = array(
+            'menu' => $this->user->getLogin(),
             'msg' => array(
                 'success' => '',
                 'danger' => ''
             )
         );
+
+        if (empty($email) || empty($token)) {
+            header('Location: '.BASE_URL);
+            exit;
+        }
 
         $user = new User();
         $userToken = new UserToken();
@@ -145,9 +167,13 @@ class loginController extends Controller
             } else {
                 $data['msg']['danger'] = 'Token usado ou expirado!';
             }
-            
         }
-
         $this->loadTemplate('recoverPassword', $data);
+    }
+
+    public function sair()
+    {
+        header('Location: '.BASE_URL);
+        exit;
     }
 }
