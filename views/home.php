@@ -7,3 +7,18 @@
         <a href="#" class="btn-banner">Explorar</a>
     </div>
 </section>
+
+<section>
+    <div class="container">
+        <h2>Animais Cadastrados</h2>
+        <div>
+            <form action="">
+                
+            </form>
+
+            <div class="animal-list">
+            
+            </div>
+        </div>
+    </div>
+</section>

@@ -21,21 +21,49 @@ class userController extends Controller
         $data = array(
             'menu' => $this->user->getLogin(),
             'user' => array(),
-            'states' => array()
+            'states' => array(),
+            'animals' => array()
         );
 
         $user = new User();
         $phone = new Phone();
         $userAddress = new UserAddress();
         $federativeUnit = new FederativeUnit();
+        $animal = new Animal();
+        $animalAddress = new AnimalAddress();
 
+        // Paginação animais
+        $limit = 3;
+        $total = $animal->getTotalAnimals();    
+
+        $data['paginas'] = ceil($total/$limit);
+
+        $data['paginaAtual'] = 1;
+        if (!empty($_GET['p'])) {
+            $data['paginaAtual'] = intval($_GET['p']);
+        }
+
+        $offset = ($data['paginaAtual'] * $limit) - $limit;
+
+        // Dados do animal
+        $a = $animal->getUserAnimalsById($_SESSION['id_user'], $offset, $limit);
+        
+        // Inserindo enredeço do animal
+        for ($i = 0; $i < count($a); $i++) {
+            $aAddress = $animalAddress->getAnimalAddressById($a[$i]['id_animal']);
+            $a[$i] = array_merge($a[$i], $aAddress);
+        }
+
+        // Dados do usuário
         $u = $user->getUserById($_SESSION['id_user']);
         $p = $phone->getPhoneById($_SESSION['id_user']);
-        $ua = $userAddress->getUserAddressById($_SESSION['id_user']);
-        $fu = $federativeUnit->getFUByUf($ua['uf']);
+        $uAddress = $userAddress->getUserAddressById($_SESSION['id_user']);
+        $fu = $federativeUnit->getFUByUf($uAddress['uf']);
 
-        $data['user'] = array_merge($u, $p, $ua, $fu);
+        // Armazenando dados para a view
+        $data['user'] = array_merge($u, $p, $uAddress, $fu);
         $data['states'] = $federativeUnit->getFederativeUnits();
+        $data['animals'] = $a;
 
         $this->loadTemplate('user', $data);
     }
@@ -87,10 +115,10 @@ class userController extends Controller
 
         $u = $user->getUserById($_SESSION['id_user']);
         $p = $phone->getPhoneById($_SESSION['id_user']);
-        $ua = $userAddress->getUserAddressById($_SESSION['id_user']);
-        $fu = $federativeUnit->getFUByUf($ua['uf']);
+        $uAddress = $userAddress->getUserAddressById($_SESSION['id_user']);
+        $fu = $federativeUnit->getFUByUf($uAddress['uf']);
 
-        $data['user'] = array_merge($u, $p, $ua, $fu);
+        $data['user'] = array_merge($u, $p, $uAddress, $fu);
         $data['states'] = $federativeUnit->getFederativeUnits();
 
         $this->loadTemplate('editUser', $data);

@@ -11,7 +11,6 @@ class UserAddress extends Model
         $array = array();
         if ($sql->rowCount() > 0) {
             $array = $sql->fetch(PDO::FETCH_ASSOC);
-            return $array;
         }
         return $array;
     }

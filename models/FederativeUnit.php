@@ -11,7 +11,6 @@ class FederativeUnit extends Model
         $array = array();
         if ($sql->rowCount() > 0) {
             $array = $sql->fetch(PDO::FETCH_ASSOC);
-            return $array;
         }
         return $array;
     }
@@ -25,7 +24,6 @@ class FederativeUnit extends Model
         $array = array();
         if ($sql->rowCount() > 0) {
             $array = $sql->fetchAll(PDO::FETCH_ASSOC);
-            return $array;
         }
         return $array;
     }

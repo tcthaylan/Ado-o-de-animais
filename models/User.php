@@ -3,6 +3,16 @@ class User extends Model
 {   
     private $login;
 
+    public function getLogin()
+    {
+        return $this->login;
+    }
+
+    public function setLogin($login)
+    {
+        $this->login = $login;
+    }
+
     // Retorna um usuário com base no id
     public function getUserById($id_user)
     {
@@ -14,19 +24,8 @@ class User extends Model
         $array = array();
         if ($sql->rowCount() > 0) {
             $array = $sql->fetch(PDO::FETCH_ASSOC);
-            return $array;
         }
         return $array;
-    }
-
-    public function setLogin($login)
-    {
-        $this->login = $login;
-    }
-
-    public function getLogin()
-    {
-        return $this->login;
     }
 
     // Não permite que dois ou mais usuários usem a mesma conta simultaneamente.

@@ -140,3 +140,13 @@ html, body {
     font-weight: 600;
     font-size: 15px;
 }
+
+/* =========== User.php =========== */
+.animal-item {
+    border: 1px solid #000;
+    display: flex;
+}
+.animal-img {
+    width: 110px;
+    height: 110px;
+}
