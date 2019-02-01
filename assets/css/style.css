@@ -87,6 +87,17 @@ html, body {
     background-color: #fff;
 }
 
+/*Listagem de animais*/
+.cards-animals > li {
+    width: 210px;
+    border: 1px solid #000;
+}
+.card-animal-img {
+    width: 200px;
+    height: 200px;
+}
+
+
 /* =========== Login.php =========== */
 .form-login {
     margin: 100px auto;

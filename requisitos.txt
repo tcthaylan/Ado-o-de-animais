@@ -1,4 +1,0 @@
-- Cadastrar foto animal
-- Editar e Exluir animal
-- Criar a home: Listagem, paginação e filtros.
-- Pagina do animal

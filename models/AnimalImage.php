@@ -48,6 +48,20 @@ class AnimalImage extends Model
         return false;
     }
 
+    public function getAnimalImage($id_animal)
+    {
+        $sql = 'SELECT * FROM animalImage WHERE id_animal = :id_animal';
+        $sql = $this->db->prepare($sql);
+        $sql->bindValue(':id_animal', $id_animal);
+        $sql->execute();
+
+        $array = array();
+        if ($sql->rowCount() > 0) {
+            $array = $sql->fetchAll(PDO::FETCH_ASSOC);
+        }
+        return $array;
+    }
+
     // Retorna todas as imagens de um animal
     public function getAnimalImages($id_animal)
     {

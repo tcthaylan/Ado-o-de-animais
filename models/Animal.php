@@ -1,6 +1,18 @@
 <?php
 class Animal extends Model
 {   
+    public function getAnimals($offset, $limit)
+    {
+        $sql = "SELECT * FROM animal LIMIT $offset, $limit";
+        $sql = $this->db->query($sql);
+        
+        $array = array();
+        if ($sql->rowCount() > 0) {
+            $array = $sql->fetchAll(PDO::FETCH_ASSOC);
+        }
+        return $array;
+    }
+
     // Cadastra um animal
     public function registerAnimal($id_specie, $id_user, $name, $gender, $description, $size)
     {
